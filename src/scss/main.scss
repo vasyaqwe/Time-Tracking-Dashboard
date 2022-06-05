@@ -1,0 +1,235 @@
+@use 'abstracts' as *;
+@use 'base' as *;
+@use 'components' as *;
+
+.container {
+    display: grid;
+    padding: 3em 0;
+    gap: 4rem;
+
+    &__item--main {
+        &__top {
+            display: flex;
+            background-color: $color-primary-blue;
+            padding: 2em;
+            border-radius: 1rem;
+            z-index: 50;
+            position: relative;
+
+            &__img {
+                max-width: 70px;
+                margin-right: 1rem;
+                border: 3px solid #fff;
+                border-radius: 100vw;
+            }
+
+            &__container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            &__p {
+                color: $color-pale-blue;
+                font-weight: 400;
+                font-size: .9rem;
+            }
+
+            &__name {
+                font-size: 1.3rem;
+                font-weight: 300;
+            }
+        }
+
+        &__bottom {
+            background-color: $color-dark-blue;
+            padding: 1.5em 2em 0.5em 2em;
+            border-radius: 1rem;
+            position: relative;
+            bottom: 10%;
+
+            z-index: 0;
+        }
+    }
+
+    &__item {
+        background-color: $color-dark-blue;
+        padding: 2em 1.5em;
+        position: relative;
+        border-radius: 1rem;
+        transition: 0.3s ease;
+
+        &:hover {
+            background-color: $color-light-blue;
+        }
+
+        &__col {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        &__p {
+            font-weight: 500;
+        }
+
+        &__hours {
+            font-weight: 300;
+            font-size: 1.7rem;
+        }
+
+        &__hours--week {
+            font-weight: 400;
+            align-self: center;
+            color: $color-pale-blue;
+        }
+    }
+
+    @each $name,
+    $color in $activities-colors {
+        &__item--#{$name} {
+            &::before {
+                content: '';
+                background-image: url('../../images/#{$name}.svg');
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: bottom 8px right 15px;
+                background-color: $color;
+                width: 100%;
+                height: 70px;
+                position: absolute;
+                top: -34%;
+                right: 0;
+                border-radius: 1rem;
+                z-index: -1;
+            }
+        }
+    }
+}
+
+.time-list {
+    display: flex;
+    justify-content: space-between;
+
+    &__item {
+        color: $color-light-blue;
+        font-weight: 400;
+        transition: 0.3s ease;
+
+        &:hover {
+            cursor: pointer;
+            color: #fff;
+        }
+    }
+
+    &__item:first-child {
+        color: #fff;
+    }
+}
+
+@media (min-width: 900px) {
+    .container {
+        margin-top: 7rem;
+        max-width: 1000px;
+        padding: 0;
+        grid-template-columns: .8fr 1fr 1fr 1fr;
+        row-gap: 4rem;
+        column-gap: 2rem;
+
+        &__item--main {
+            grid-row: 1 / span 2;
+            position: relative;
+
+            &::before {
+                content: '';
+                background-color: $color-primary-blue;
+                width: 100%;
+                height: 100px;
+                position: absolute;
+                top: -14%;
+                border-top-left-radius: 1rem;
+                border-top-right-radius: 1rem;
+            }
+
+            &__top {
+                display: flex;
+                flex-direction: column;
+                background-color: $color-primary-blue;
+                padding: 0 4em 5em 2em;
+                border-radius: 1rem;
+                z-index: 50;
+                position: relative;
+
+                &__img {
+                    max-width: 70px;
+                    margin-bottom: 1rem;
+                    border: 3px solid #fff;
+                    border-radius: 100vw;
+                }
+
+                &__container {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+
+                &__p {
+                    color: $color-pale-blue;
+                    font-weight: 400;
+                }
+
+                &__name {
+                    font-size: 2.2rem;
+                    font-weight: 300;
+                    line-height: 2.8rem;
+                }
+            }
+
+            &__bottom {
+
+                position: relative;
+                bottom: 5%;
+            }
+        }
+
+        @each $name,
+        $color in $activities-colors {
+            &__item--#{$name} {
+                &::before {
+                    top: -22%;
+                }
+            }
+        }
+
+        &__item {
+            padding: 1.5em 1.5em 0em 1.5em;
+            position: relative;
+            top: -11%;
+
+            &__col:nth-child(1) {
+                margin-bottom: 1rem;
+            }
+
+            &__col:nth-child(2) {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            &__hours {
+                font-size: 3rem;
+            }
+
+            &__hours--week {
+                align-self: flex-start;
+            }
+        }
+    }
+
+    .time-list {
+        flex-direction: column;
+
+        &__item+&__item {
+            margin-top: 1rem;
+        }
+    }
+}
